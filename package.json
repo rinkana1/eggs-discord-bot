@@ -1,0 +1,15 @@
+{
+  "name": "public-discord-test-bot-repo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^13.2.0",
+    "eslintrc": "^1.0.6"
+  }
+}
