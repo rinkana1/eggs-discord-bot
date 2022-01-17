@@ -1,23 +1,41 @@
 // require the necessary discord.js classes
 const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
-const { token } = require('./config.json');
-const { SlashCommandStringOption } = require('@discordjs/builders');
-const messageCreate = require('./events/messageCreate');
+const { token, dbhost, dbuser, dbpass, dbname, timeOptions } = require('./config.json');
+const mysql = require('mysql');
+
+// Replaces console.log(); Adds timestamp to each logged message
+var log = (mess) => {
+    return console.log.apply(
+        console,
+        [`[${new Date().toLocaleTimeString('en-US', timeOptions)}] ${mess}`]
+    );
+};
+global.log = log;
 
 // create a new Discord client
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, 'GUILD_MESSAGES', 'DIRECT_MESSAGES'] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, 'GUILD_MESSAGES', 'DIRECT_MESSAGES', 'GUILD_VOICE_STATES'] });
 
-client.commands = new Collection();
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+// Creates a connection with MySQL database
+// Information such as dbuser and dbpass must be defined in config.json
+let db = mysql.createConnection({
+    host: dbhost,
+    user: dbuser,
+    password: dbpass,
+    database: dbname,
+    charset: "utf8mb4_unicode_ci"
+});
 
-for (const file of commandFiles) {
-    const command = require(`./commands/${file}`);
-    // Set a new item in the Collection
-    // With the key as the command name and the value as the exported module
-    client.commands.set(command.data.name, command);
-}
+// Connects to MySQL Database connection
+db.connect((err) => {
+    if (err) throw err;
+    log(`Connected to MySQL Database!`);
+});
 
+// Makes MySQL database global for all commands and events in program
+global.db = db;
+
+// EVENTS
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 
 for (const file of eventFiles) {

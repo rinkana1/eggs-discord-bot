@@ -392,3 +392,5 @@ node_modules
 config.json
 
 .eslintrc.json
+
+.gitignore
