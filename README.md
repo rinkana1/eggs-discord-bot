@@ -1,0 +1,6 @@
+# Eggs Discord Bot
+Eggs is an original Discord Bot that I wrote for my personal Discord server with my group of friends. It uses the Discord.js API to connect to a local database and reacts mostly to messages sent by my friends. I started it mostly so I had a fun side-project to work on and practice my skills with Node.js and learn how to use MySQL.
+
+This is a copy of my original repository with some features being omitted, as they include the user IDs of some people in order to send personalized messages at random times. Due to recent events that occured with Rythm and Groovy discord bots that regarded Youtube's TOS, I won't be attempting to add music bot capabilities, but that was my original goal with this bot.
+
+If you want to use this code as a framework, feel free to do so! A lot of the database code is based of my own database's structure, which I can send if you ask. Otherwise, it should be pretty easy to follow along. Periodically, I'm going to be going through the code and adding comments to make it more easily readable. Of course, you can follow Discord.js guides on how to do the basic setup, as well as w3schools tutorials on Node.js and MySQL. For all variables that are dependent on config.json, you have to provide that information seperately.
